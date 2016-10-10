@@ -1,20 +1,21 @@
 # AutoLayoutKit
-使用 swift 编写的 AutoLayout 布局库
+使用 Swift 编写的 AutoLayout 布局库。
 
 ## 目录
 * [其它布局库的问题](#other_lib_problem)
-* [AutoLayoutKit 概览](#overview)
+* [环境要求](#requirement)
 * [安装](#install)
+* [AutoLayoutKit 概览](#overview)
 * [使用](#how_to_use)
 * [API 描述](#api_desc)
 
 <a name="other_lib_problem"></a>
 ## 其它布局库的问题
-iOS/OS X 开发中为了适应多种尺寸，会使用 AutoLayout。但系统提供的 AutoLayout API 太难用了，需要一定的封装。
+iOS/macOS 开发中为了适应多种尺寸，会使用 AutoLayout。但系统提供的 AutoLayout API 太难用了，需要一定的封装。
 
-已经有了很多 AutoLayout 的封装库，比如 Objective-C 编写的 [Masonry](https://github.com/SnapKit/Masonry)。Swift 编写的 [Cartography](https://github.com/robb/Cartography)。这些库本身很出色。
+已经有了很多 AutoLayout 的封装库，比如 Objective-C 编写的 [Masonry](https://github.com/SnapKit/Masonry)，Swift 编写的 [Cartography](https://github.com/robb/Cartography)。这些库本身很出色。
 
-只是这些库用起来还是不够方便，它们的 API 每次调用只配置一两个 view 之间的关系，这点跟原生 API 没有什么本质区别。但事实上我们更关心界面的整体布局。比如下面这种简单的界面：
+只是这些库用起来还是不够方便，它们的 API 每次调用只配置一两个 view 之间的关系，但事实上我们更关心界面的整体布局。比如下面这种简单的界面：
 
 <img alt="example0" src="./images/example0.png"/ width="320">
 
@@ -56,6 +57,29 @@ self.tk_constraint { make in
     make.yPlace(redView, blueView, yellowView)
 }
 ```
+
+<a name="requirement"></a>
+## 环境要求
+* Swift 3.0+
+* Xcode 8.0+
+* iOS 8.0+ / macOS 10.10
+
+<a name="install"></a>
+## 安装
+
+### Carthage
+
+在您的 `Cartfile` 添加上这一行
+
+```ogdl
+github "hjcapple/AutoLayoutKit" "HEAD"
+```
+
+运行命令 `carthage update` 生成 `AutoLayoutKit.framework`，将其添加到工程中。
+
+### 手动安装
+
+下载代码，将 `AutoLayoutKit.xcodeproj` 添加到工程当中。
 
 <a name="overview"></a>
 ## AutoLayoutKit 概览
@@ -227,11 +251,6 @@ class TestView3
 ```
 	
 这样调用 tk_constraint(replace: xxx), 之前产生的约束会自动被删除。替换上的约束。
-
-<a name="install"></a>
-## 安装
-
-LayoutKit 只有两个文件，下载之后直接将 AutoLayoutKit 下的代码添加到工程中。
 
 <a name="how_to_use"></a>
 ## 使用
