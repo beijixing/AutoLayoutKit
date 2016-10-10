@@ -62,7 +62,7 @@ self.tk_constraint { make in
 ## 环境要求
 * Swift 3.0+
 * Xcode 8.0+
-* iOS 8.0+ / macOS 10.10
+* iOS 8.0+ / macOS 10.10+
 
 <a name="install"></a>
 ## 安装
