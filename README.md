@@ -11,11 +11,11 @@
 
 <a name="other_lib_problem"></a>
 ## 其它布局库的问题
-iOS/macOS 开发中为了适应多种尺寸，会使用 AutoLayout。但系统提供的 AutoLayout API 太难用了，需要一定的封装。
+iOS/macOS 开发中为了适应多种尺寸，会使用 AutoLayout。但 `NSLayoutConstraint` 太难用了，需要一定的封装。
 
-已经有了很多 AutoLayout 的封装库，比如 Objective-C 编写的 [Masonry](https://github.com/SnapKit/Masonry)，Swift 编写的 [Cartography](https://github.com/robb/Cartography)。这些库本身很出色。
+已经有了很多 AutoLayout 的封装库，比如 Objective-C 编写的 [Masonry](https://github.com/SnapKit/Masonry)，Swift 编写的 [Cartography](https://github.com/robb/Cartography)。
 
-只是这些库用起来还是不够方便，它们的 API 每次调用只配置一两个 view 之间的关系，但事实上我们更关心界面的整体布局。比如下面这种简单的界面：
+这些库很不错，只是用起来还是不够方便，它们的 API 每次调用只配置一两个 view 之间的关系，但事实上我们更关心界面的整体布局。比如下面这种简单的界面：
 
 <img alt="example0" src="./images/example0.png"/ width="320">
 
@@ -46,7 +46,7 @@ constraint(redView, blueView, yellowView) { red, blue, yellow in
 }
 ```
 	
-这个写法已经比 NSLayoutConstraint 好太多了。但假如需要配置更多 view，并且 view 之间的间距并非相同，写起来就很越来越繁琐了。
+这个写法已经比 `NSLayoutConstraint` 好太多了。但假如需要配置更多 view，并且 view 之间的间距并非相同，写起来就很繁琐了。
 
 AutoLayoutKit 更关心整体布局，一次处理多个 view, 上面例子可以写成。
 
@@ -83,7 +83,7 @@ github "hjcapple/AutoLayoutKit" "HEAD"
 
 <a name="overview"></a>
 ## AutoLayoutKit 概览
-这个库的 API 故意设计成跟另一个库 [LayoutKit](https://github.com/hjcapple/LayoutKit) 相似，LayoutKit 使用 frame 来实现布局。假如你对这个库有兴趣，很可能会对 LayoutKit 也有兴趣。但使用 AutoLayout，在最开始是没有办法知道 View 的大小，也不可能方便地产生等间距的布局。
+这个库的 API 设计成跟另一个库 [LayoutKit](https://github.com/hjcapple/LayoutKit) 相似，LayoutKit 使用 frame 来实现布局。假如您对这个库有兴趣，很可能会对 LayoutKit 也有兴趣。使用 AutoLayout 在最开始是没有办法知道 view 的大小，也不可能方便地产生等间距的布局。
 
 界面布局，大致分解成 3 步：
 
@@ -91,25 +91,25 @@ github "hjcapple/AutoLayoutKit" "HEAD"
 2. 水平方向排列各个 views。
 3. 垂直方向排列各个 views。
 
-AutoLayoutKit 提供 API 来设置大小、水平位置、垂直位置。水平方向和垂直方向使用数轴的概念：
+AutoLayoutKit 提供 API 分别设置大小、水平位置、垂直位置。水平方向和垂直方向使用数轴的概念：
 
 * 水平方向，就是 x 方向。
 * 垂直方向，就是 y 方向。
 
 API 设计中
 
-* xLeft、xRight、xCenter、xPlace 等等就是设置 x 方向。
-* yTop、yBottom、yCenter、yPlace 等等就是设置 y 方向。
+* `xLeft`、`xRight`、`xCenter`、`xPlace` 等就是设置 x 方向。
+* `yTop`、`yBottom`、`yCenter`、`yPlace` 等就是设置 y 方向。
 
 ### 一次设置多个 view
 
-AutoLayoutKit 的 API 设计成一次设置多个 view 之间的关系。比如：
+AutoLayoutKit 可以一次设置多个 view 之间的关系。比如：
 
 ```Swift	
 make.xLeft(redView, blueView, yellowView)
 ```
 	
-可以将传入的 views 都设置成靠左。最实用的是 xPlace 和 yPlace 函数。比如：
+将传入的 views 都设置成靠左。最实用的是 xPlace 和 yPlace 函数。比如：
 
 ```Swift
 make.xPlace(20, redView, make.wall, blueView, 20)
@@ -143,7 +143,7 @@ yellowView.right == parent.right - 30
 
 <a name="wall"></a>
 ### divider（或者叫墙 wall)
-在 xPlace 中连写 view 或者间距，就会自动产生约束关系，比如
+在 `xPlace` 中连写 view 或者间距，就会自动产生约束关系，比如
 
 ```Swift
 make.xPlace(20, redView, blueView, 20)
@@ -159,7 +159,7 @@ make.wall
 ```Swift
 make.xPlace(20, redView, make.wall, blueView, 20)
 ```
-redView 和 blueView 被阻隔，因此 redView 跟左边相连，就靠左边；blueView 跟右边相连，就靠右边。产生布局
+redView 和 blueView 被阻隔，因此 redView 跟左边相连，blueView 跟右边相连。产生布局
 
 <img alt="example1" src="./images/example1.png"/ width="320">
 
@@ -184,7 +184,7 @@ make.xPlace(20, redView, 20, blueView, make.wall)
 <a name="edges"></a>
 ### 边距 edges
 
-最开始的时候上下左右边距都为 0，但可以通过 insetEdges 插入新的边距。比如：
+最开始时上下左右边距都为 0，但可以通过 insetEdges 插入新的边距。比如：
 
 ```Swift
 make.insetEdges(edge: 30)
@@ -286,8 +286,8 @@ AutoLayoutKit 也就提供 API 分别完成这三个步骤，而 x 排列和 y �
 ### 修改 edges
 
 ```Swift
-func insetEdges(top top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> EdgeInsets
-func insetEdges(edge edge: CGFloat) -> EdgeInsets
+func insetEdges(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> EdgeInsets
+func insetEdges(edge: CGFloat) -> EdgeInsets
 ```
 
 上面已经有[边距 edges](#edges)的描述，上面两个 API 是中插入边距，并返回旧的 edges。
@@ -313,7 +313,7 @@ make.h // 高度
 用法：
 
 ```Swift	
-make.size(view0, view1, view2) == CGSizeMake(100, 100)
+make.size(view0, view1, view2) == CGSize(width: 100, height: 100)
 ```
 	
 将所有 views 设置成对应的大小。另外可以简写，去掉 CGSizeMake。
@@ -516,8 +516,7 @@ make.install(constraint0)
 等价于
 
 	AutoLayoutKitAttribute(leftView, .Left)
-	
-将这些简便方法分离到其它文件中，可以选择是否包含到工程。
+
 	
  
 
