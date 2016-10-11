@@ -476,7 +476,7 @@ make.equal(redView)
 这样，就将 redView 设置成距离边距 20。
 
 ### AutoLayoutKitAttribute
-上面提到的 API 已经可以配置绝大部分的布局。但假如有些约束上面 API 表示不了，可以使用更基本的 AutoLayoutKitAttribute。
+上面提到的 API 已经可以配置绝大部分的布局。但假如有些约束上面 API 表示不了，可以使用更基本的 `AutoLayoutKitAttribute`。
 
 比如 
 
@@ -492,7 +492,7 @@ make.install(left == right - 10)
 leftView.left == rightView.right - 10
 ```
 	
-或者你想产生约束 AutoLayoutKitConstraint。可以写成
+或者你想产生约束 `AutoLayoutKitConstraint`。可以写成
 
 ```Swift
 let left = AutoLayoutKitAttribute(leftView, .Left)
@@ -511,11 +511,15 @@ make.install(constraint0)
 
 另外 AutoLayoutKit-ext.swift 文件中也包含一些扩展，
 
-	leftView.tk_left
+```Swift
+leftView.tk_left
+```
 	
 等价于
 
-	AutoLayoutKitAttribute(leftView, .Left)
+```Swift
+AutoLayoutKitAttribute(leftView, .Left)
+```
 
 	
  
